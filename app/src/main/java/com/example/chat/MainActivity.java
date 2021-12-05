@@ -57,7 +57,7 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
     RecyclerView chatView;
     ChatAdapter chatAdapter;
     List<Message> messageList = new ArrayList<>();
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     String reply;   //응답
     String result; //최종 결과 전부 들어있음
     String title; // 복지 제목
-    int classfication; //중앙부처 여부
+    String  classfication; //중앙부처 여부
     String department; // 담당부처
     String address; // 관할 지역
     String reply_result;    //최종 복지 결과 대답
@@ -150,6 +150,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // STT 테스트----------------------------------------------------
+
+        tts = new TextToSpeech(MainActivity.this, this);
         button1 = (Button)findViewById(R.id.button1);
         //textView1 = (TextView)findViewById(R.id.textView1);
 
@@ -197,6 +199,10 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"ko-KR");   // 텍스트로 변환시킬 언어 설정
 
         sttBtn.setOnClickListener(v -> {
+            if (tts != null) {
+                tts.stop();
+            }
+
             if(mRecognizer!=null) {
                 mRecognizer.destroy();
                 mRecognizer.cancel();
@@ -352,23 +358,36 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(body);
                 reply = (String)jsonObject.getString("result texts");
                 try {
-                    result = (String)jsonObject.getString("resultData");
-                    JSONObject resultObject = new JSONObject(result);
-                    title = (String)resultObject.getString("title");
-                    classfication = (int) resultObject.getInt("classification");
-                    //중앙부처일 경우
-                    if(classfication == 1) {
-                        department = (String)resultObject.getString("department");
-                        reply_result = department + "에서 주관하는 " + title + "사업이 존재합니다.";
+                    if(jsonObject.has("sessionInit")) {
+                        sessonId = UUID.randomUUID().toString();
                     }
-                    //지자체일 경우
-                    else{
-                        address = (String)resultObject.getString("address");
-                        reply_result = address + "에서 주관하는 " + title + "사업이 존재합니다.";
+                    if(jsonObject.has("resultData")){
+                        result = (String)jsonObject.getString("resultData");
+                        JSONObject resultObject = new JSONObject(result);
+                        // 복지로 데이터
+                        if(jsonObject.has("fromBokjiro")){
+                            title = (String)resultObject.getString("title");
+                            classfication = (String)resultObject.getString("classification").trim();
+                            //중앙부처일 경우
+                            if(classfication.equals("중앙부처")) {
+                                department = (String)resultObject.getString("department");
+                                reply_result = department + "에서 주관하는 " + title + "사업이 존재합니다.";
+                            }
+                            //지자체일 경우
+                            else{
+                                address = (String)resultObject.getString("address");
+                                reply_result = address + "에서 주관하는 " + title + "사업이 존재합니다.";
+                            }
+                        }
+                        //복지로 데이터 아닌 경우 (Q&A)
+                        else {
+                            title = (String)resultObject.getString("title");
+                            String contents = (String)resultObject.getString("contents");
+                            reply_result = title +"라는 질문이 있습니다. 해당 질문에 대한 답변은 "+contents;
+                        }
                     }
-                    System.out.println("title"+result);
                 } catch (Exception e){
-                    System.out.println("No result");
+                    System.out.println(e);
                 }
 
                 runOnUiThread(new Runnable() {
@@ -414,6 +433,25 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    public void speakJust(String text) {
+
+        // tts가 사용중이면, 말하지않는다.
+        if(!tts.isSpeaking()) {
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+        }else{
+            System.out.println("tts used");
+        }
+
+    }
+    @Override
+    public void onInit(int status){
+        if(status == TextToSpeech.SUCCESS){
+            int result = tts.setLanguage(Locale.KOREAN);
+            tts.speak("복지 정보 채팅 기능입니다. 해당 기능은 복지 서비스 추천기능과 복지 질문 검색 기능이 존재합니다. 복지 추천을 원하시면 추천, 검색을 원하시면 검색이라고 말씀해주세요.", TextToSpeech.QUEUE_FLUSH, null);
+        }
+
+    }
 
     @Override
     protected void onDestroy() {

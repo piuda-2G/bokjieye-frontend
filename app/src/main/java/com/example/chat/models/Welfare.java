@@ -6,6 +6,7 @@ public class Welfare {
     private String content;
 
     public Welfare(String id,String title, String content){
+        this.id = id;
         this.title = title;
         this.content = content;
     }

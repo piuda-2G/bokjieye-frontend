@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="신규 5건, 전체 4938건"
-                android:textSize="19dp"
+                android:textSize="18dp"
                 android:textColor="@color/textblue"
                 />
             <TextView
@@ -129,6 +129,7 @@
                 android:textSize="17dp"
                 android:background="@drawable/searching_box"
                 android:hint="검색 키워드를 입력해주세요."
+
                 />
             <ImageButton
                 android:id = "@+id/searchQuery_button"
@@ -141,21 +142,86 @@
                 android:background="@drawable/searching_button_selector"/>
 
         </LinearLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/infolayout2"
+            app:layout_constraintBottom_toTopOf="@id/recycleLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+
+            >
+            <TextView
+                android:id="@+id/searchText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "'복지' 에 관한 검색 결과입니다"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingLeft="24dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/refresh_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/refreshlayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="20dp"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/refreshbtn"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text = "필터 초기화"
+                    android:textSize="12dp"
+                    android:paddingRight="5dp"
+                    android:paddingVertical="2dp"/>
+
+
+            </LinearLayout>
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
+            android:id = "@+id/recycleLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/infolayout2">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_layout"
+            android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/recyclerview"/>
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/noSearchResult"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text = "검색 결과가 존재하지 않습니다."
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone"
+                 />
 
+        </LinearLayout>
 
 
 

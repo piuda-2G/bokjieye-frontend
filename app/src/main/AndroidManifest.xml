@@ -4,6 +4,9 @@
 
     <queries>
         <package android:name="com.google.android.googlequicksearchbox" />
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
     </queries>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -20,6 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".WelfareDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".RecentinfoActivity"
             android:exported="false" />

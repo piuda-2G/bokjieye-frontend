@@ -2,6 +2,7 @@ package com.example.chat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chat.adapters.WelfareAdapter;
@@ -22,7 +25,11 @@ import com.example.chat.models.Welfare;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -51,6 +58,12 @@ public class RecentinfoActivity extends AppCompatActivity {
     CheckBox localChk;
     EditText searchText;
     ImageButton searchBtn;
+    TextView searchView;
+    LinearLayout refreshBtn;
+    ConstraintLayout searchLayout;
+    TextView noResult;
+
+
     String queryText;
     Boolean central_bool = false;
     Boolean local_bool = false;
@@ -65,6 +78,29 @@ public class RecentinfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recentinfo);
 
+        new Thread() {
+            public void run(){
+                try{
+                    URL url = new URL("http://15.165.111.247/count-items/");
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    JSONObject commands = new JSONObject();
+
+                    BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line = "";
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line);
+                    }
+                    JSONObject responseJson = new JSONObject(sb.toString());
+                    TextView countText = (TextView) findViewById(R.id.info_abstract_count);
+                    String text = "신규 "+responseJson.getString("new")+"건, 전체 "+responseJson.getString("total")+"건";
+                    countText.setText(text);
+                } catch (Exception e){
+                    System.out.println(e);
+                }
+            }
+        }.start();
         // CheckBox logic
         centralChk = findViewById(R.id.check_Central);
         localChk = findViewById(R.id.check_Local);
@@ -117,15 +153,24 @@ public class RecentinfoActivity extends AppCompatActivity {
         // search logic
         searchText = findViewById(R.id.search_Query);
         searchBtn = (ImageButton) findViewById(R.id.searchQuery_button);
+        searchView = (TextView) findViewById(R.id.searchText);
+        refreshBtn = (LinearLayout) findViewById(R.id.refresh_filter);
+        searchLayout = (ConstraintLayout)findViewById(R.id.search_layout);
+
+        //No search result
+        noResult = (TextView) findViewById(R.id.noSearchResult);
 
         searchBtn.setOnClickListener(v -> {
-            queryText = "";
             String message = searchText.getText().toString();
-            searchText.setText("검색 키워드를 입력해주세요.");
+            searchText.setText("");
             list.clear();
             page = 1;
             search_bool = true;
             queryText = message;
+            String returntext = "'"+message+"'에 관한 검색 결과입니다.";
+            searchView.setText(returntext);
+            searchLayout.setVisibility(View.VISIBLE);
+
             try {
                 sendData(serverURL);
             } catch (InterruptedException e) {
@@ -135,7 +180,26 @@ public class RecentinfoActivity extends AppCompatActivity {
             initScrollListener();
 
         });
+        //필터 초기화 버튼
+        refreshBtn.setOnClickListener(v -> {
+            queryText = "";
+            page = 1;
+            search_bool = false;
+            local_bool = false;
+            central_bool = false;
+            searchLayout.setVisibility(View.GONE);
+            centralChk.setChecked(false);
+            localChk.setChecked(false);
+            list.clear();
+            try {
+                sendData(serverURL);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            initAdapter();
+            initScrollListener();
 
+        });
 
 
         //RecyclerView for welfare list
@@ -230,6 +294,9 @@ public class RecentinfoActivity extends AppCompatActivity {
             System.out.println("server body test"+ body);
             try{
                 JSONArray allresult = new JSONArray(body);
+                if(allresult.length() == 0 ){
+                    noResult.setVisibility(View.VISIBLE);
+                }
                 for (int i = 0; i < allresult.length(); i++) {
                     JSONObject item = allresult.getJSONObject(i).getJSONObject("_source");
                     System.out.println("asdf" + item);
@@ -254,15 +321,6 @@ public class RecentinfoActivity extends AppCompatActivity {
         }
     }
 
-    private String URLmaker(String URL, int pageNum){
-        System.out.println("URLMaker called"+URL.indexOf("page="));
-        int pageindex = URL.indexOf("page=");
-        StringBuffer urlbuffer = new StringBuffer(URL);
-        urlbuffer.insert(pageindex+5,pageNum);
-        serverURL = urlbuffer.toString();
-        System.out.println("urlbuffer test!"+serverURL);
-        return "success";
-    }
 
 
 
@@ -271,7 +329,7 @@ public class RecentinfoActivity extends AppCompatActivity {
 
     private void initAdapter() {
         System.out.println("init list "+list.size());
-        recyclerViewAdapter = new WelfareAdapter(list);
+        recyclerViewAdapter = new WelfareAdapter(this,list);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
@@ -296,7 +354,7 @@ public class RecentinfoActivity extends AppCompatActivity {
 
                         dataMore();
                         isLoading = true;
-                        Toast.makeText(RecentinfoActivity.this, "스크롤감지", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(RecentinfoActivity.this, "스크롤", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

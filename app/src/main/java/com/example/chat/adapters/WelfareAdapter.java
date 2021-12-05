@@ -1,6 +1,8 @@
 package com.example.chat.adapters;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.chat.MainActivity;
 import com.example.chat.R;
+import com.example.chat.WelfareDetailActivity;
 import com.example.chat.models.Message;
 import com.example.chat.models.Welfare;
 
@@ -22,9 +27,10 @@ public class WelfareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final int VIEW_TYPE_LOADING = 1;
 
     public List<Welfare> mItemList;
+    private Context mcon;
 
-
-    public WelfareAdapter(List<Welfare> itemList) {
+    public WelfareAdapter(Context con, List<Welfare> itemList) {
+        mcon = con;
         mItemList = itemList;
     }
     @NonNull
@@ -79,6 +85,13 @@ public class WelfareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     int pos = getAdapterPosition();
                     System.out.println("pos!"+pos);
                     System.out.println("test@!"+mItemList.get(pos).getTitle());
+                    System.out.println("test!@"+mItemList.get(pos).getContent());
+                    System.out.println("test!@"+mItemList.get(pos).getId());
+                    String id = mItemList.get(pos).getId();
+
+                    Intent intent = new Intent(v.getContext(), WelfareDetailActivity.class);
+                    intent.putExtra("id",id);
+                    mcon.startActivity(intent);
                 }
             });
         }
