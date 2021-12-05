@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@drawable/welfarelist"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tvItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="정신건강복지센터운영(아동청소년정신건강증진사업 포함)"
+        android:maxLines="1"
+        android:textSize="20dp"
+        />
+    <TextView
+        android:id="@+id/tvcontent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight = "16dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+
+        android:text = "장애인를 가진 사람에게 직접 돌봄 도우미가 방문하여 도움을 제공하는 서비스입니다."/>
+
+</LinearLayout>
+

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/message_send"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="4dp"
+        android:text="12345123412351523512351235151235512351235"
+        android:background="@drawable/bg_chat_send"
+        android:minHeight="50dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:gravity="center|left"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="15dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp">
+
+    </TextView>
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/pomi"
+
+
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            app:srcCompat="@drawable/chatbrid" />
+
+        <TextView
+            android:id="@+id/message_receive"
+            android:layout_width="280dp"
+
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="10dp"
+
+            android:background="@drawable/bg_chat_receive"
+            android:minHeight="50dp"
+            android:gravity="center|left"
+            android:layout_gravity="center"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="15dp"
+            android:text="asdasdfsdfsfffdsafdasdfasfddfdfdsdfdsdfasdfs"
+            android:textColor="@android:color/black"
+            android:textSize="16sp">
+
+        </TextView>
+
+
+    </LinearLayout>
+</LinearLayout>
