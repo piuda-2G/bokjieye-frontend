@@ -92,6 +92,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     int final_label = 0;
     int voice_label = 0;
 
+    //전화 연결
+    Boolean call_flag = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                                     }
                                 });
                             }
+
 
 
                         }
@@ -352,6 +357,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         }
         @Override
         public void onResponse(Call call, Response response) throws IOException {
+            call_flag = false;
             String body = response.body().string();
             System.out.println("바디:"+body);
             try {
@@ -368,10 +374,12 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                         if(jsonObject.has("fromBokjiro")){
                             title = (String)resultObject.getString("title");
                             classfication = (String)resultObject.getString("classification").trim();
+                            call_flag = true;
                             //중앙부처일 경우
                             if(classfication.equals("중앙부처")) {
                                 department = (String)resultObject.getString("department");
                                 reply_result = department + "에서 주관하는 " + title + "사업이 존재합니다.";
+
                             }
                             //지자체일 경우
                             else{
@@ -405,13 +413,26 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                             // 최종 결과 반환
                             if(result != null){
 
+
                                 messageList.add(new Message(reply_result, true));
                                 chatAdapter.notifyDataSetChanged();
                                 Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
-                                tts.speak(reply_result,TextToSpeech.QUEUE_FLUSH, null);
-
+                                while (tts.isSpeaking()){
+                                    System.out.println("Do something or nothing while speaking..");
+                                }
+                                tts.speak(reply_result,TextToSpeech.QUEUE_ADD, null);
+                                while (tts.isSpeaking()){
+                                    System.out.println("Do something or nothing while speaking..");
+                                }
                                 result = null;
                             }
+                            if ( call_flag == true){
+                                String call_message = "상담을 위해 복지 서비스 담당 부처에 전화 연결을 진행할까요?";
+                                messageList.add(new Message(call_message,true));
+                                Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
+
+                                tts.speak(call_message,TextToSpeech.QUEUE_ADD, null);
+                            } 
 
 
 

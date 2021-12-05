@@ -78,24 +78,56 @@ public class WelfareDetailActivity extends AppCompatActivity {
 //
 //
         JSONObject jsonobj = new JSONObject(list).getJSONObject("_source");
-        try{
+        String address = null;
+        String age = null;
+        String classification = null;
+        String contents = null;
+        String department = null;
+        String interest = null;
+        String lifecycle = (String)jsonobj.get("lifecycle");
+        String phone = null;
+        String title = null;
+        System.out.println("********");
 
-        } catch (Exception e){
-            System.out.println("address parse error"+e.toString());
-        }
-        String address = jsonobj.getString("address");
-        String age = jsonobj.getString("age");
-        String classification = jsonobj.getString("classification");
-        String contents = jsonobj.getString("contents");
-        String department = jsonobj.getString("department");
-        String interest = jsonobj.getString("interest");
-        String lifecycle = jsonobj.getString("ifecycle");
-        String phone = jsonobj.getString("phone");
-        String title = jsonobj.getString("title");
+
+        System.out.println("********");
+//        if(jsonobj.has("address")){
+//            address = jsonobj.getString("address");
+//        }
+//        if(jsonobj.has("age")){
+//            age = jsonobj.getString("age");
+//        }
+//        if(jsonobj.has("lifecycle")){
+//            lifecycle = jsonobj.getString("ifecycle");
+//        }
+//        if(jsonobj.has("")){
+//
+//        }
+//        if(jsonobj.has("")){
+//
+//        }
+//        if(jsonobj.has("")){
+//
+//        }
+//        if(jsonobj.has("")){
+//
+//        }
+//        if(jsonobj.has("")){
+//
+//        }
+//
+//        String classification = jsonobj.getString("classification");
+//        String contents = jsonobj.getString("contents");
+//        String department = jsonobj.getString("department");
+//        String interest = jsonobj.getString("interest");
+//        String lifecycle = jsonobj.getString("ifecycle");
+//        String phone = jsonobj.getString("phone");
+//        String title = jsonobj.getString("title");
         System.out.println("----");
-        System.out.println("age"+age);
-        System.out.println("classification"+classification);
-        System.out.println("contents"+contents);
+//        System.out.println("age"+age);
+//        System.out.println("classification"+classification);
+//        System.out.println("contents"+contents);
+        System.out.println(lifecycle);
     }
 
 
