@@ -3,6 +3,8 @@ package com.example.chat;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +30,8 @@ public class WelfareDetailActivity extends AppCompatActivity {
     LinearLayout container;
     TextView newphone;
     TextView newname;
+    String phone = "";
+    String name = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +107,8 @@ public class WelfareDetailActivity extends AppCompatActivity {
         for(int i=0;i<phones.length();i++){
             JSONObject item = (JSONObject)phones.get(i);
             System.out.println(item.getString("number"));
-            String phone = item.getString("number");
-            String name = item.getString("name");
+            phone = item.getString("number");
+            name = item.getString("name");
         }
 
         runOnUiThread(new Runnable() {
@@ -114,14 +118,35 @@ public class WelfareDetailActivity extends AppCompatActivity {
                 contentview = findViewById(R.id.welfare_content);
                 targetview = findViewById(R.id.welfare_target);
                 departmentview = findViewById(R.id.welfare_department);
-                phoneview = findViewById(R.id.welfare_phone);
 
                 container = (LinearLayout) findViewById(R.id.content_layout);
+                newphone = new TextView(getApplicationContext());
+                newname = new TextView(getApplicationContext());
 
                 titleview.setText(title);
                 contentview.setText(contents);
                 targetview.setText(target);
                 departmentview.setText(department);
+
+                System.out.println("phone num---"+phone);
+                System.out.println("phone num---"+phone.isEmpty());
+
+                if(!phone.isEmpty()) {
+                    newphone.setText(phone);
+                    newphone.setTextColor(Color.BLACK);
+
+
+                    container.addView(newphone);
+                }
+                if(!name.isEmpty()) {
+                    newname.setText(name);
+                    newname.setTextColor(Color.BLACK);
+
+
+                    container.addView(newname);
+                }
+
+
 
             }
         });

@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     String reply;   //응답
     String result; //최종 결과 전부 들어있음
     String title; // 복지 제목
-    String  classfication; //중앙부처 여부
+    String classfication; //중앙부처 여부
     String department; // 담당부처
     String address; // 관할 지역
     String reply_result;    //최종 복지 결과 대답
@@ -94,8 +94,11 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     //전화 연결
     Boolean call_flag = false;
+    Boolean phone_flag = false; // tts phone flag
+    String request_id = null;
 
 
+    String tel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                     tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                         @Override
                         public void onDone(String utteranceId) {
-                            if(voice_label == 1) {
+                            if(voice_label == 1 && phone_flag == false) {
                                 runOnUiThread(new Runnable() {
 
                                     public void run() {
@@ -131,6 +134,19 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                                         mRecognizer.startListening(intent);
                                     }
                                 });
+                            }
+                            if(phone_flag == true) {
+                                phone_flag = false;
+                                System.out.println("call success");
+                                try{
+
+                                    tel = "tel:01090056254";
+                                    startActivity(new Intent("android.intent.action.CALL", Uri.parse(tel)));
+                                } catch (Exception e){
+                                    System.out.println("phone"+e.toString());
+                                }
+
+
                             }
 
 
@@ -234,7 +250,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                     Objects.requireNonNull(chatView.getLayoutManager())
                             .scrollToPosition(messageList.size() - 1);
                 } else {
-                    Toast.makeText(MainActivity.this, "Please enter text!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Please enter text!", Toast.LENGTH_SHORT).show();
+                    System.out.println("btnsend else");
                 }
             }
         });
@@ -345,7 +362,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         new Thread() {
             public void run() {
 // 파라미터 2개와 미리정의해논 콜백함수를 매개변수로 전달하여 호출
-                httpConn.requestWebServer(text, callback, sessonId);
+                httpConn.requestWebServer(text, callback, sessonId, request_id);
             }
         }.start();;
     }
@@ -368,18 +385,18 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                         sessonId = UUID.randomUUID().toString();
                     }
                     if(jsonObject.has("resultData")){
+                        request_id=null;
                         result = (String)jsonObject.getString("resultData");
                         JSONObject resultObject = new JSONObject(result);
                         // 복지로 데이터
                         if(jsonObject.has("fromBokjiro")){
                             title = (String)resultObject.getString("title");
                             classfication = (String)resultObject.getString("classification").trim();
-                            call_flag = true;
+                            request_id=resultObject.getString("id");
                             //중앙부처일 경우
                             if(classfication.equals("중앙부처")) {
                                 department = (String)resultObject.getString("department");
                                 reply_result = department + "에서 주관하는 " + title + "사업이 존재합니다.";
-
                             }
                             //지자체일 경우
                             else{
@@ -393,6 +410,62 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                             String contents = (String)resultObject.getString("contents");
                             reply_result = title +"라는 질문이 있습니다. 해당 질문에 대한 답변은 "+contents;
                         }
+                        if(jsonObject.has("resultData") && jsonObject.has("fromRecommend")){
+                            call_flag = true;
+                        }
+                    }
+                    //전화연결
+                    if(jsonObject.has("call")){
+                        //서버에서 넘어온 call값이 true이면 전화 연결
+                        if(jsonObject.getBoolean("call")){
+
+                            tel = "tel:" + jsonObject.getString("number");
+                            System.out.println("tel ---"+ tel);
+                            System.out.println("bool ---"+ jsonObject.getBoolean("exist"));
+                            if(jsonObject.getBoolean("exist")) {
+                                System.out.println("local ---");
+                                String not_welfare = "해당 복지의 담당부처로 전화를 연결합니다";
+                                phone_flag =true;
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        messageList.add(new Message(not_welfare,true));
+                                        chatAdapter.notifyDataSetChanged();
+                                        Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
+
+
+                                    }
+                                });
+
+                                HashMap<String, String> params = new HashMap<String, String>();
+
+                                params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,"stringId");
+                                tts.speak(not_welfare,TextToSpeech.QUEUE_FLUSH, params);
+
+                            }
+                            if(!jsonObject.getBoolean("exist")){
+                                //보건복지부로 연결
+                                System.out.println("local ---");
+                                String not_welfare = "해당 복지의 연락 가능한 전화번호가 존재하지 않습니다. 상담을 위해 보건복지부로 전화를 연결합니다.";
+                                phone_flag =true;
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        messageList.add(new Message(not_welfare,true));
+                                        chatAdapter.notifyDataSetChanged();
+                                        Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
+
+                                    }
+                                });
+                                HashMap<String, String> params = new HashMap<String, String>();
+
+                                params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,"stringId");
+                                tts.speak(not_welfare,TextToSpeech.QUEUE_FLUSH, params);
+                            }
+
+
+
+                        }
                     }
                 } catch (Exception e){
                     System.out.println(e);
@@ -402,6 +475,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                     @Override
                     public void run() {
                         if(!reply.isEmpty()) {
+                            System.out.println("----reply"+reply);
                             messageList.add(new Message(reply, true));
                             chatAdapter.notifyDataSetChanged();
                             Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
@@ -412,8 +486,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
                             // 최종 결과 반환
                             if(result != null){
-
-
                                 messageList.add(new Message(reply_result, true));
                                 chatAdapter.notifyDataSetChanged();
                                 Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);

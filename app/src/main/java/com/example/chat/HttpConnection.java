@@ -28,11 +28,14 @@ public class HttpConnection {
 
 
     /** 웹 서버로 요청을 한다. */
-    public void requestWebServer(String parameter, Callback callback, String sesson) {
+    public void requestWebServer(String parameter, Callback callback, String sesson, String request_id) {
         try {
             JSONObject json = new JSONObject();
             json.put("texts", parameter);
             json.put("sessionId", sesson);
+            if(request_id != null){
+                json.put("request_id",request_id);
+            }
             RequestBody body = RequestBody.create(JSON,json.toString());
 
             Request request = new Request.Builder()
