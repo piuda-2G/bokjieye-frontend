@@ -111,7 +111,7 @@ public class MenuActivity extends AppCompatActivity implements TextToSpeech.OnIn
         benefitInfoButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), Benefit.class);
                 startActivity(intent);
                 if (tts != null) {
                     tts.stop();

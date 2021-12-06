@@ -140,7 +140,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                                 System.out.println("call success");
                                 try{
 
-                                    tel = "tel:01090056254";
                                     startActivity(new Intent("android.intent.action.CALL", Uri.parse(tel)));
                                 } catch (Exception e){
                                     System.out.println("phone"+e.toString());
@@ -314,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 //                    break;
             }
 
-            Toast.makeText(getApplicationContext(), "에러가 발생하였습니다. : " + message,Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getApplicationContext(), "에러가 발생하였습니다. : " + message,Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -339,7 +338,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                         .scrollToPosition(messageList.size() - 1);
                 mRecognizer.destroy();
             } else {
-                Toast.makeText(MainActivity.this, "Please enter text!", Toast.LENGTH_SHORT).show();
+               if(phone_flag != true) {
+                   Toast.makeText(MainActivity.this, "Please enter text!", Toast.LENGTH_SHORT).show();
+
+               }
             }
         }
 
@@ -486,9 +488,16 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
                             // 최종 결과 반환
                             if(result != null){
-                                messageList.add(new Message(reply_result, true));
-                                chatAdapter.notifyDataSetChanged();
-                                Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        messageList.add(new Message(reply_result, true));
+                                        chatAdapter.notifyDataSetChanged();
+                                        Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
+
+                                    }
+                                });
+
                                 while (tts.isSpeaking()){
                                     System.out.println("Do something or nothing while speaking..");
                                 }
@@ -500,8 +509,17 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                             }
                             if ( call_flag == true){
                                 String call_message = "상담을 위해 복지 서비스 담당 부처에 전화 연결을 진행할까요?";
-                                messageList.add(new Message(call_message,true));
-                                Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        messageList.add(new Message(call_message,true));
+                                        chatAdapter.notifyDataSetChanged();
+                                        Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
+
+
+                                    }
+                                });
+
 
                                 tts.speak(call_message,TextToSpeech.QUEUE_ADD, null);
                             }
@@ -509,7 +527,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
 
                         } else{
-                            Toast.makeText(MainActivity.this, "Please enter text!", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(MainActivity.this, "Please enter text!", Toast.LENGTH_SHORT).show();
                             System.out.println("응답 에러");
                         }
 

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    //뒷 배경이미지
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="7"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5.8"
+            android:scaleType="fitXY"
+            android:src="@drawable/back_color">
+        </ImageView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1.2"
+            android:background="#FFFFFF"
+            android:layout_height="match_parent">
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:weightSum="100"
+        android:orientation="vertical">
+
+
+        //상단 카테고리
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="88">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text = "혜택 카테고리"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/scdream6"
+                android:textSize = "27sp">
+            </TextView>
+        </LinearLayout>
+
+
+        //메뉴 위치
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="12"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_B1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingLeft="20dp"
+                android:background="@drawable/btn_style"
+                android:textColor="#000000"
+                android:text="연금 등 소득지원"
+                android:textSize = "20sp"
+                android:textStyle="bold">
+            </Button>
+
+            <Button
+                android:id="@+id/btn_B2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingLeft="20dp"
+                android:background="@drawable/btn_style"
+                android:textColor="#000000"
+                android:text="자립 및 취업"
+                android:textSize = "20sp"
+                android:textStyle="bold">
+            </Button>
+
+            <Button
+                android:id="@+id/btn_B3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingLeft="20dp"
+                android:background="@drawable/btn_style"
+                android:textColor="#000000"
+                android:text="주거지원"
+                android:textSize = "20sp"
+                android:textStyle="bold">
+            </Button>
+
+            <Button
+                android:id="@+id/btn_B4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingLeft="20dp"
+                android:background="@drawable/btn_style"
+                android:textColor="#000000"
+                android:text="아동/여성지원"
+                android:textSize = "20sp"
+                android:textStyle="bold">
+            </Button>
+
+            <Button
+                android:id="@+id/btn_B5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingLeft="20dp"
+                android:background="@drawable/btn_style"
+                android:textColor="#000000"
+                android:text="감면 및 공제"
+                android:textSize = "20sp"
+                android:textStyle="bold">
+            </Button>
+
+            <Button
+                android:id="@+id/btn_B6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingLeft="20dp"
+                android:background="@drawable/btn_style"
+                android:textColor="#000000"
+                android:text="각종할인"
+                android:textSize = "20sp"
+                android:textStyle="bold">
+            </Button>
+
+            <Button
+                android:id="@+id/btn_B7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.97"
+                android:gravity="left|center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingLeft="20dp"
+                android:background="@drawable/btn_style"
+                android:textColor="#000000"
+                android:text="기타지원"
+                android:textSize = "20sp"
+                android:textStyle="bold">
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

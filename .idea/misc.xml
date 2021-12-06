@@ -5,10 +5,12 @@
       <map>
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.16979166666666667" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/drawable/backcolor.xml" value="0.29010416666666666" />
+        <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/drawable/benefitlistview_style.xml" value="0.18425925925925926" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/drawable/bg_chat_receive.xml" value="0.1" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/drawable/bg_chat_send.xml" value="0.264" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/drawable/bntimg.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/drawable/border_outline.xml" value="0.159375" />
+        <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/drawable/btn_style.xml" value="0.18425925925925926" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/drawable/chat_receive.xml" value="0.159375" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/drawable/chatbtn.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/drawable/check_click.xml" value="0.264" />
@@ -38,12 +40,16 @@
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/drawable/voicebtn.xml" value="0.29010416666666666" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/drawable/welfarelist.xml" value="0.2856410256410256" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/font/font.xml" value="0.18958333333333333" />
+        <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/layout/activity_benefit.xml" value="0.2246376811594203" />
+        <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/layout/activity_benefit_specific.xml" value="0.2246376811594203" />
+        <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/layout/activity_benefit_specific2.xml" value="0.2246376811594203" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/layout/activity_memu.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/layout/activity_menu.xml" value="0.264" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/layout/activity_recentinfo.xml" value="0.176" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/layout/activity_welfare_detail.xml" value="0.136" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/layout/adapter_message_one.xml" value="0.22916666666666666" />
+        <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/layout/form_benefitinfo.xml" value="0.2246376811594203" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/layout/fragment_first.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/layout/item_loading.xml" value="0.15989583333333332" />
         <entry key="..\:/Users/jiyeon/AndroidStudioProjects/chat/app/src/main/res/layout/item_recycler.xml" value="0.2" />

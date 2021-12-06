@@ -4,6 +4,7 @@
 
     <queries>
         <package android:name="com.google.android.googlequicksearchbox" />
+
         <intent>
             <action android:name="android.intent.action.TTS_SERVICE" />
         </intent>
@@ -23,6 +24,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Benefit_specific_2"
+            android:exported="false" />
+        <activity
+            android:name=".Benefit_specific"
+            android:exported="false" />
+        <activity
+            android:name=".Benefit"
+            android:exported="false" />
         <activity
             android:name=".WelfareDetailActivity"
             android:exported="false" />

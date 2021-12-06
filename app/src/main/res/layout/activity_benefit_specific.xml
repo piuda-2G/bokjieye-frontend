@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    tools:context=".Benefit_specific">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:id="@+id/recentinfoTop"
+        android:orientation="vertical"
+        android:background="@drawable/back_color">
+
+
+        //글꼴 scdream7로 되어있었음
+        <TextView
+            android:id="@+id/subject_n"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = ""
+            android:fontFamily="@font/notosanskrblack"
+            android:textSize="27dp"
+            android:textColor="#ffffff"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/roundtop"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:id="@+id/roundtop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/recentinfotop"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    //하단 데이터
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbarStyle="outsideInset"
+        android:layout_weight="3">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id = "@+id/listView_B1"
+            android:scrollbarStyle="outsideInset"
+            android:padding = "15dp"
+            android:dividerHeight = "10dp"
+            android:divider = "#FFFFFF">
+        </ListView>
+
+    </LinearLayout>
+
+
+</LinearLayout>
