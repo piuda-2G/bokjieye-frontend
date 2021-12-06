@@ -142,13 +142,14 @@
                 android:id="@+id/btnSend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:tint="#43A047"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="12dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_media_play"
+                android:background = "@drawable/message_send_btn"
+                app:srcCompat="@drawable/message_send"
                 tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
             <Button

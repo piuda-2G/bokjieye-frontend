@@ -432,7 +432,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                                 Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
 
                                 tts.speak(call_message,TextToSpeech.QUEUE_ADD, null);
-                            } 
+                            }
 
 
 

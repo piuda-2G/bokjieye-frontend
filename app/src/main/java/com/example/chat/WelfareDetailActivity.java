@@ -4,14 +4,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class WelfareDetailActivity extends AppCompatActivity {
+
+    TextView titleview;
+    TextView contentview;
+    TextView targetview;
+    TextView departmentview;
+    TextView phoneview;
+
+    LinearLayout container;
+    TextView newphone;
+    TextView newname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,57 +93,47 @@ public class WelfareDetailActivity extends AppCompatActivity {
 //            System.out.println("json title"+title);
 //
 //
-        JSONObject jsonobj = new JSONObject(list).getJSONObject("_source");
-        String address = null;
-        String age = null;
-        String classification = null;
-        String contents = null;
-        String department = null;
-        String interest = null;
-        String lifecycle = (String)jsonobj.get("lifecycle");
-        String phone = null;
-        String title = null;
+        JSONObject jsonobj = new JSONObject(list);
+        String title =  jsonobj.getString("title");
+        String contents =  jsonobj.getString("contents");
+        String target =  jsonobj.getString("target");
+        String department =  jsonobj.getString("department");
+        JSONArray phones = (JSONArray) jsonobj.getJSONArray("phones");
+
+        for(int i=0;i<phones.length();i++){
+            JSONObject item = (JSONObject)phones.get(i);
+            System.out.println(item.getString("number"));
+            String phone = item.getString("number");
+            String name = item.getString("name");
+        }
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                titleview = findViewById(R.id.welfare_title);
+                contentview = findViewById(R.id.welfare_content);
+                targetview = findViewById(R.id.welfare_target);
+                departmentview = findViewById(R.id.welfare_department);
+                phoneview = findViewById(R.id.welfare_phone);
+
+                container = (LinearLayout) findViewById(R.id.content_layout);
+
+                titleview.setText(title);
+                contentview.setText(contents);
+                targetview.setText(target);
+                departmentview.setText(department);
+
+            }
+        });
+
+
+        System.out.println("id------"+target);
+        System.out.println("id------"+phones);
+
         System.out.println("********");
 
 
-        System.out.println("********");
-//        if(jsonobj.has("address")){
-//            address = jsonobj.getString("address");
-//        }
-//        if(jsonobj.has("age")){
-//            age = jsonobj.getString("age");
-//        }
-//        if(jsonobj.has("lifecycle")){
-//            lifecycle = jsonobj.getString("ifecycle");
-//        }
-//        if(jsonobj.has("")){
-//
-//        }
-//        if(jsonobj.has("")){
-//
-//        }
-//        if(jsonobj.has("")){
-//
-//        }
-//        if(jsonobj.has("")){
-//
-//        }
-//        if(jsonobj.has("")){
-//
-//        }
-//
-//        String classification = jsonobj.getString("classification");
-//        String contents = jsonobj.getString("contents");
-//        String department = jsonobj.getString("department");
-//        String interest = jsonobj.getString("interest");
-//        String lifecycle = jsonobj.getString("ifecycle");
-//        String phone = jsonobj.getString("phone");
-//        String title = jsonobj.getString("title");
-        System.out.println("----");
-//        System.out.println("age"+age);
-//        System.out.println("classification"+classification);
-//        System.out.println("contents"+contents);
-        System.out.println(lifecycle);
+
     }
 
 

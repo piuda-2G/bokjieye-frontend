@@ -35,6 +35,8 @@ public class MenuActivity extends AppCompatActivity implements TextToSpeech.OnIn
     private TextToSpeech tts;
     private SpeechRecognizer mRecognizer;
 
+    String new_count;
+    String total_count;
 
 
     @Override
@@ -65,10 +67,10 @@ public class MenuActivity extends AppCompatActivity implements TextToSpeech.OnIn
                         sb.append(line);
                     }
                     JSONObject responseJson = new JSONObject(sb.toString());
-                    TextView newCount = (TextView) findViewById(R.id.center1);
-                    TextView totalCount = (TextView) findViewById(R.id.center3);
-                    newCount.setText(responseJson.getString("new"));
-                    totalCount.setText(responseJson.getString("total"));
+
+                    new_count = responseJson.getString("new");
+                    total_count = responseJson.getString("total");
+
                 } catch (Exception e){
                     System.out.println(e);
                 }
@@ -138,6 +140,15 @@ public class MenuActivity extends AppCompatActivity implements TextToSpeech.OnIn
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TextView newCount = (TextView) findViewById(R.id.center1);
+        TextView totalCount = (TextView) findViewById(R.id.center3);
+        newCount.setText(new_count);
+        totalCount.setText(total_count);
     }
 
     @Override

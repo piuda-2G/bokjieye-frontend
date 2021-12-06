@@ -58,13 +58,20 @@
                 android:layout_height="wrap_content"
                 android:text="신규 5건, 전체 4938건"
                 android:textSize="18dp"
+                android:includeFontPadding = "false"
+                android:fontFamily="@font/notosanskrmedium"
                 android:textColor="@color/textblue"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="의 복지서비스가 존재합니다."
-                android:textSize="19dp"/>
+                android:textSize="19dp"
+                android:textColor="#020715"
+                android:includeFontPadding = "false"
+                android:fontFamily="@font/notosanskrmedium"
+
+                />
 
         </LinearLayout>
 
@@ -92,6 +99,9 @@
                 android:layout_height="wrap_content"
                 android:text="중앙부처"
                 android:textSize="17dp"
+                android:includeFontPadding = "false"
+                android:fontFamily="@font/notosansregular"
+                android:textColor="#000000"
                 android:layout_marginRight="35dp"
                 />
             <CheckBox
@@ -105,6 +115,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="지자체"
+                android:includeFontPadding = "false"
+                android:fontFamily="@font/notosansregular"
+                android:textColor="#000000"
                 android:textSize="17dp"/>
         </LinearLayout>
 
@@ -129,6 +142,8 @@
                 android:textSize="17dp"
                 android:background="@drawable/searching_box"
                 android:hint="검색 키워드를 입력해주세요."
+                android:includeFontPadding = "false"
+                android:fontFamily="@font/notosansregular"
 
                 />
             <ImageButton

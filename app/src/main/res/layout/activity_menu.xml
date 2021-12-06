@@ -61,11 +61,11 @@
             android:background="@drawable/chat_btn"
 
 
-            android:text="복지 정보 채팅서비스"
-            android:fontFamily="@font/scdream7"
+            android:text="복지 정보 채팅하기"
+            android:fontFamily="@font/notosanskrblack"
             android:textColor="#ffffff"
             android:gravity="center|top"
-            android:padding="20dp"
+
             android:textSize="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -242,12 +242,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="시각장애인 혜택 정리"
-                android:fontFamily="@font/scdream7"
+                android:text="장애인 혜택 정리"
+                android:fontFamily="@font/notosanskrblack"
                 android:textSize="30dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:paddingBottom="10dp"
+                android:paddingBottom="15dp"
                 android:elevation="10dp"
                 android:textColor="@color/textblue"/>
 

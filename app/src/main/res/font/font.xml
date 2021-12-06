@@ -37,4 +37,28 @@
         android:fontWeight="400"
         android:font="@font/scdream9"/>
 
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/notosanskrthin"/>
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/notosanskrlight"/>
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/notosansregular"/>
+    <font
+        android:fontStyle="normal"
+
+        android:font="@font/notosanskrmedium"/>
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/notosanskrbold"/>
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/notosanskrblack"/>
 </font-family>
