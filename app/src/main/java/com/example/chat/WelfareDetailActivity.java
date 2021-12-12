@@ -106,20 +106,20 @@ public class WelfareDetailActivity extends AppCompatActivity {
 
         for(int i=0;i<phones.length();i++){
             JSONObject item = (JSONObject)phones.get(i);
-            System.out.println(item.getString("number"));
             phone = item.getString("number");
             name = item.getString("name");
         }
 
+        titleview = findViewById(R.id.welfare_title);
+        contentview = findViewById(R.id.welfare_content);
+        targetview = findViewById(R.id.welfare_target);
+        departmentview = findViewById(R.id.welfare_department);
+
+        container = (LinearLayout) findViewById(R.id.content_layout);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                titleview = findViewById(R.id.welfare_title);
-                contentview = findViewById(R.id.welfare_content);
-                targetview = findViewById(R.id.welfare_target);
-                departmentview = findViewById(R.id.welfare_department);
 
-                container = (LinearLayout) findViewById(R.id.content_layout);
                 newphone = new TextView(getApplicationContext());
                 newname = new TextView(getApplicationContext());
 
@@ -128,8 +128,6 @@ public class WelfareDetailActivity extends AppCompatActivity {
                 targetview.setText(target);
                 departmentview.setText(department);
 
-                System.out.println("phone num---"+phone);
-                System.out.println("phone num---"+phone.isEmpty());
 
                 if(!phone.isEmpty()) {
                     newphone.setText(phone);
@@ -141,7 +139,7 @@ public class WelfareDetailActivity extends AppCompatActivity {
                 if(!name.isEmpty()) {
                     newname.setText(name);
                     newname.setTextColor(Color.BLACK);
-
+                    newname.setPadding(0,0,0,10);
 
                     container.addView(newname);
                 }
@@ -151,11 +149,6 @@ public class WelfareDetailActivity extends AppCompatActivity {
             }
         });
 
-
-        System.out.println("id------"+target);
-        System.out.println("id------"+phones);
-
-        System.out.println("********");
 
 
 

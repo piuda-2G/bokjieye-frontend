@@ -76,10 +76,11 @@
                 android:layout_marginRight="20dp"
                 android:paddingLeft="20dp"
                 android:background="@drawable/btn_style"
-                android:textColor="#000000"
+                android:textColor="#020715"
                 android:text="연금 등 소득지원"
-                android:textSize = "20sp"
-                android:textStyle="bold">
+                android:includeFontPadding = "false"
+                android:fontFamily="@font/notosanskrbold"
+                android:textSize = "20dp">
             </Button>
 
             <Button
@@ -92,18 +93,21 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:includeFontPadding = "false"
+                android:fontFamily="@font/notosanskrbold"
                 android:paddingLeft="20dp"
                 android:background="@drawable/btn_style"
-                android:textColor="#000000"
+                android:textColor="#020715"
                 android:text="자립 및 취업"
-                android:textSize = "20sp"
-                android:textStyle="bold">
+                android:textSize = "20dp">
             </Button>
 
             <Button
                 android:id="@+id/btn_B3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:includeFontPadding = "false"
+                android:fontFamily="@font/notosanskrbold"
                 android:layout_weight="1"
                 android:gravity="left|center_vertical"
                 android:layout_marginTop="10dp"
@@ -112,16 +116,17 @@
                 android:layout_marginRight="20dp"
                 android:paddingLeft="20dp"
                 android:background="@drawable/btn_style"
-                android:textColor="#000000"
+                android:textColor="#020715"
                 android:text="주거지원"
-                android:textSize = "20sp"
-                android:textStyle="bold">
+                android:textSize = "20dp">
             </Button>
 
             <Button
                 android:id="@+id/btn_B4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:includeFontPadding = "false"
+                android:fontFamily="@font/notosanskrbold"
                 android:layout_weight="1"
                 android:gravity="left|center_vertical"
                 android:layout_marginTop="10dp"
@@ -130,16 +135,17 @@
                 android:layout_marginRight="20dp"
                 android:paddingLeft="20dp"
                 android:background="@drawable/btn_style"
-                android:textColor="#000000"
+                android:textColor="#020715"
                 android:text="아동/여성지원"
-                android:textSize = "20sp"
-                android:textStyle="bold">
+                android:textSize = "20dp">
             </Button>
 
             <Button
                 android:id="@+id/btn_B5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:includeFontPadding = "false"
+                android:fontFamily="@font/notosanskrbold"
                 android:layout_weight="1"
                 android:gravity="left|center_vertical"
                 android:layout_marginTop="10dp"
@@ -148,16 +154,17 @@
                 android:layout_marginRight="20dp"
                 android:paddingLeft="20dp"
                 android:background="@drawable/btn_style"
-                android:textColor="#000000"
+                android:textColor="#020715"
                 android:text="감면 및 공제"
-                android:textSize = "20sp"
-                android:textStyle="bold">
+                android:textSize = "20dp">
             </Button>
 
             <Button
                 android:id="@+id/btn_B6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:includeFontPadding = "false"
+                android:fontFamily="@font/notosanskrbold"
                 android:layout_weight="1"
                 android:gravity="left|center_vertical"
                 android:layout_marginTop="10dp"
@@ -166,16 +173,17 @@
                 android:layout_marginRight="20dp"
                 android:paddingLeft="20dp"
                 android:background="@drawable/btn_style"
-                android:textColor="#000000"
+                android:textColor="#020715"
                 android:text="각종할인"
-                android:textSize = "20sp"
-                android:textStyle="bold">
+                android:textSize = "20dp">
             </Button>
 
             <Button
                 android:id="@+id/btn_B7"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:includeFontPadding = "false"
+                android:fontFamily="@font/notosanskrbold"
                 android:layout_weight="0.97"
                 android:gravity="left|center_vertical"
                 android:layout_marginTop="10dp"
@@ -184,10 +192,9 @@
                 android:layout_marginRight="20dp"
                 android:paddingLeft="20dp"
                 android:background="@drawable/btn_style"
-                android:textColor="#000000"
+                android:textColor="#020715"
                 android:text="기타지원"
-                android:textSize = "20sp"
-                android:textStyle="bold">
+                android:textSize = "20dp">
             </Button>
         </LinearLayout>
     </LinearLayout>

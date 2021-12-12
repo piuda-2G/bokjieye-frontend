@@ -57,41 +57,6 @@ public class Benefit_Info_ListAdapter extends BaseAdapter {
         B_contents.setText(b_Info.get(position).getB_contents());
 
 
-        //버튼 클릭시 해당 리스트 항목의 id 가져옴 -> 상세페이지 리스트로 넘김
-        Button btn = (Button) v.findViewById(R.id.b_more);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = b_Info.get(position).getB_id();
-
-/*              String name = b_Info.get(position).getB_name();
-                String contents =b_Info.get(position).getB_contents();
-                String who = b_Info.get(position).getB_who();
-                String howto = b_Info.get(position).getB_howto();*/
-                System.out.println("id"+id);
-                Intent intent = new Intent(v.getContext(), Benefit_specific_2.class);
-
-                intent.putExtra("front_info2", subject);
-                intent.putExtra("id",id);
-/*              intent.putExtra("name",name);
-                intent.putExtra("contents",contents);
-                intent.putExtra("whos",who);
-                intent.putExtra("howto",howto);*/
-
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //새로운  task 생성
-                v.getContext().startActivity(intent);
-            }
-        });
-
-
-
-
-
-
-
-
-
-
 
 
         //특정항목 반환

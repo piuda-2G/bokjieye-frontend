@@ -88,8 +88,14 @@ public class Benefit_specific extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Log.i("click",String.valueOf(position));
-                // Benefit_Info vo = (Benefit_Info)parent.getAdapter().getItem(position);
+                Benefit_Info vo = (Benefit_Info)parent.getAdapter().getItem(position);
+                String p_id  =  vo.getB_id();
+                Intent intent = new Intent(getApplicationContext(), Benefit_specific_2.class);
+                intent.putExtra("front_info2", sub_text);
+                //System.out.println("front_name"+sub_text);
+                intent.putExtra("id",p_id);
+                startActivity(intent);
+
             }
 
         });

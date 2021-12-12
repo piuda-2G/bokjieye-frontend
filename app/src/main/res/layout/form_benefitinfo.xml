@@ -12,7 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/b_name"
-        android:paddingLeft="10dp"
+        android:paddingHorizontal="10dp"
+        android:includeFontPadding="false"
+        android:paddingVertical="10dp"
         android:textColor="#020715"
         android:fontFamily="@font/notosanskrmedium"
         android:text="제목"
@@ -23,28 +25,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/b_contents"
-        android:paddingLeft="10dp"
+        android:paddingHorizontal="10dp"
         android:textColor="#020715"
         android:fontFamily="@font/notosansregular"
         android:text="내용"
         android:includeFontPadding="false"
+        android:layout_marginBottom ="15dp"
         android:textSize="15sp"
         android:maxLines="2"
         android:ellipsize="end" />
     <!-- <Button-->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:paddingLeft="50dp"
-        android:fontFamily="@font/notosansregular"
-        android:textColor="#000000"
-        android:background="#00ff0000"
-        android:layout_gravity="right"
-        android:text="자세히보기"
-        android:textSize="15sp"
-        android:id="@+id/b_more"/>
 
 
 

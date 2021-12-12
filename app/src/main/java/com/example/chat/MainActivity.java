@@ -96,7 +96,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     Boolean call_flag = false;
     Boolean phone_flag = false; // tts phone flag
     String request_id = null;
-
+    Boolean result_flag = false;
+    String call_message;
 
     String tel;
     @Override
@@ -125,7 +126,12 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                     tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                         @Override
                         public void onDone(String utteranceId) {
-                            if(voice_label == 1 && phone_flag == false) {
+                            if(result_flag == true){
+                                System.out.println("this is result_flag");
+
+                            }
+                            if(voice_label == 1 && phone_flag == false && result_flag == false) {
+                                System.out.println("speak start");
                                 runOnUiThread(new Runnable() {
 
                                     public void run() {
@@ -135,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                                     }
                                 });
                             }
+
                             if(phone_flag == true) {
                                 phone_flag = false;
                                 System.out.println("call success");
@@ -158,8 +165,12 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
                         @Override
                         public void onStart(String utteranceId) {
-
+                            if(utteranceId.equals("call_logic")){
+                                System.out.println("call_logic called"+utteranceId);
+                                result_flag = false;
+                            }
                             System.out.println("tts start@");
+
                         }
                     });
                 }
@@ -172,24 +183,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         // STT 테스트----------------------------------------------------
 
         tts = new TextToSpeech(MainActivity.this, this);
-        button1 = (Button)findViewById(R.id.button1);
-        //textView1 = (TextView)findViewById(R.id.textView1);
-
-//        if ( Build.VERSION.SDK_INT >= 23 ){
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET, Manifest.permission.RECORD_AUDIO}, PERMISSION);
-//
-//
-//        }
-
-
-        button1.setOnClickListener(v -> {
-//            String tel = "tel:01090056254";
-//            startActivity(new Intent("android.intent.action.CALL", Uri.parse(tel)));
-
-            System.out.println("전화걸기");
-
-        });
-
 
 
         // 자판 보이게 하기
@@ -399,6 +392,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                             if(classfication.equals("중앙부처")) {
                                 department = (String)resultObject.getString("department");
                                 reply_result = department + "에서 주관하는 " + title + "사업이 존재합니다.";
+
                             }
                             //지자체일 경우
                             else{
@@ -478,6 +472,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                     public void run() {
                         if(!reply.isEmpty()) {
                             System.out.println("----reply"+reply);
+                            if(reply.equals("추천 복지 정보는 다음과 같습니다.") == true){
+                                result_flag = true;
+                                System.out.println("success true");
+                            }
                             messageList.add(new Message(reply, true));
                             chatAdapter.notifyDataSetChanged();
                             Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
@@ -498,17 +496,13 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                                     }
                                 });
 
-                                while (tts.isSpeaking()){
-                                    System.out.println("Do something or nothing while speaking..");
-                                }
-                                tts.speak(reply_result,TextToSpeech.QUEUE_ADD, null);
-                                while (tts.isSpeaking()){
-                                    System.out.println("Do something or nothing while speaking..");
-                                }
+
+                                tts.speak(reply_result,TextToSpeech.QUEUE_ADD, params);
+
                                 result = null;
                             }
                             if ( call_flag == true){
-                                String call_message = "상담을 위해 복지 서비스 담당 부처에 전화 연결을 진행할까요?";
+                                call_message = "상담을 위해 복지 서비스 담당 부처에 전화 연결을 진행할까요?";
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -521,7 +515,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                                 });
 
 
-                                tts.speak(call_message,TextToSpeech.QUEUE_ADD, null);
+
+                                params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,"call_logic");
+                                tts.speak(call_message,TextToSpeech.QUEUE_ADD, params);
                             }
 
 
@@ -559,7 +555,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     public void onInit(int status){
         if(status == TextToSpeech.SUCCESS){
             int result = tts.setLanguage(Locale.KOREAN);
-            tts.speak("복지 정보 채팅 기능입니다. 해당 기능은 복지 서비스 추천기능과 복지 질문 검색 기능이 존재합니다. 복지 추천을 원하시면 추천, 검색을 원하시면 검색이라고 말씀해주세요.", TextToSpeech.QUEUE_FLUSH, null);
+            tts.speak("복지 정보 채팅 기능입니다. 해당 기능은 복지 추천기능과 복지 질문 검색 기능이 존재합니다. 하단 버튼을 클릭하여 추천 또는 검색이라고 말씀해주세요.", TextToSpeech.QUEUE_FLUSH, null);
         }
 
     }

@@ -2,11 +2,14 @@ package com.example.chat;
 
 import static android.speech.tts.TextToSpeech.ERROR;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
@@ -16,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -37,7 +41,7 @@ public class MenuActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     String new_count;
     String total_count;
-
+    static final int PERMISSIONS_REQUEST = 0x0000001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,8 @@ public class MenuActivity extends AppCompatActivity implements TextToSpeech.OnIn
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET, Manifest.permission.RECORD_AUDIO,Manifest.permission.CALL_PHONE},PERMISSION);
 
         }
-        tts = new TextToSpeech(MenuActivity.this, this);
+
+
 
 
         new Thread() {
@@ -126,7 +131,7 @@ public class MenuActivity extends AppCompatActivity implements TextToSpeech.OnIn
         System.out.println("처음 status"+status);
         if(status == TextToSpeech.SUCCESS){
             int result = tts.setLanguage(Locale.KOREAN);
-            tts.speak("안녕하세요 복지 서비스 제공 앱 복지아이입니다.앱의 기능은 첫번째 복지관련 채팅상담 기능 두번째 최신복지 정보 확인 기능 세번째 장애인 혜택 확인 기능이 존재합니다.",TextToSpeech.QUEUE_FLUSH, null);;
+            tts.speak("안녕하세요 복지 서비스 제공 어플 복지아이입니다.앱의 기능은 첫번째 복지관련 채팅상담 기능 두번째 최신복지 확인 기능 세번째 장애인 혜택 확인 기능이 존재합니다.",TextToSpeech.QUEUE_FLUSH, null);;
 
         }
 
@@ -141,14 +146,47 @@ public class MenuActivity extends AppCompatActivity implements TextToSpeech.OnIn
         }
 
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
+        switch(requestCode) {
+
+            case PERMISSIONS_REQUEST:
+
+                if (grantResults.length > 0
+
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    tts = new TextToSpeech(MenuActivity.this, this);
+
+                    // 권한 허가된 경우 처리
+
+                } else {
+
+                    Toast.makeText(this, "앱 실행을 위해서는 권한이 필요합니다.", Toast.LENGTH_LONG).show();
+
+                }
+
+                break;
+
+        }
+
+    }
     @Override
     protected void onResume() {
         super.onResume();
-        TextView newCount = (TextView) findViewById(R.id.center1);
-        TextView totalCount = (TextView) findViewById(R.id.center3);
-        newCount.setText(new_count);
-        totalCount.setText(total_count);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView newCount = (TextView) findViewById(R.id.center1);
+                TextView totalCount = (TextView) findViewById(R.id.center3);
+
+                newCount.setText(new_count);
+                totalCount.setText(total_count);
+
+            }
+        });
+
     }
 
     @Override
